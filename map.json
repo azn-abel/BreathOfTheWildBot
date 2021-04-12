@@ -85,32 +85,32 @@
       {
         "name": "Oman Au",
         "trial_name": "Magnesis Trial",
-        "puzzle_question": "",
-        "puzzle_answer": ""
+        "puzzle_question": "What is 2 + 2?",
+        "puzzle_answer": "4"
       },
       {
         "name": "Ja Baij",
         "trial_name": "Bomb Trial",
-        "puzzle_question": "",
-        "puzzle_answer": ""
+        "puzzle_question": "What is 2 x 2?",
+        "puzzle_answer": "4"
       },
       {
         "name": "Owa Dam",
         "trial_name": "Stasis Trial",
-        "puzzle_question": "",
-        "puzzle_answer": ""
+        "puzzle_question": "What is 2 ^ 2?",
+        "puzzle_answer": "4"
       },
       {
         "name": "Yowaka Ita",
         "trial_name": "Bomb Trial",
-        "puzzle_question": "",
-        "puzzle_answer": ""
+        "puzzle_question": "What is 2 - 2?",
+        "puzzle_answer": "0"
       },
       {
         "name": "Keh Namut",
         "trial_name": "Cryonis Trial",
-        "puzzle_question": "",
-        "puzzle_answer": ""
+        "puzzle_question": "What is 2 / 2?",
+        "puzzle_answer": "1"
       }
     ]
   },
