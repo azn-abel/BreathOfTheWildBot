@@ -1,0 +1,205 @@
+{
+"regions": [
+  {
+    "tower": "Akkala",
+    "shrines": []
+  },
+  {
+    "tower": "Central",
+    "shrines": []
+  },
+  {
+    "tower": "Dueling Peaks",
+    "shrines": [
+      {
+        "name": "Bosh Kala",
+        "trial_name": "The Wind Guides You",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ta'Loh Naeg",
+        "trial_name": "Ta'Loh Naeg's Teaching",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ree Dahee",
+        "trial_name": "Timing is Critical",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Hila Rao",
+        "trial_name": "Drifting",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ha Dahamar",
+        "trial_name": "The Water Guides",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Shee Vaneer",
+        "trial_name": "Twin Memories",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Shee Venath",
+        "trial_name": "Twin Memories",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Lakna Rokee",
+        "trial_name": "Lakna Rokee's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Toto Sah",
+        "trial_name": "Toto Sah Apparatus",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
+  },
+  {
+    "tower": "Eldin",
+    "shrines": []
+  },
+  {
+    "tower": "Faron",
+    "shrines": []
+  },
+  {
+    "tower": "Gerudo",
+    "shrines": []
+  },
+  {
+    "tower": "Great Plateau",
+    "shrines": [
+      {
+        "name": "Oman Au",
+        "trial_name": "Magnesis Trial",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ja Baij",
+        "trial_name": "Bomb Trial",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Owa Dam",
+        "trial_name": "Stasis Trial",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Yowaka Ita",
+        "trial_name": "Bomb Trial",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Keh Namut",
+        "trial_name": "Cryonis Trial",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
+  },
+  {
+    "tower": "Hebra",
+    "shrines": []
+  },
+  {
+    "tower": "Lake",
+    "shrines": []
+  },
+  {
+    "tower": "Lanaryu",
+    "shrines": [
+      {
+        "name": "Daka Tuss",
+        "trial_name": "Sunken Scoop",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Rucco Maag",
+        "trial_name": "Five Flames",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Kaya Wan",
+        "trial_name": "Shields From Water",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Sheh Rata",
+        "trial_name": "Speed of Light",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Shai Yota",
+        "trial_name": "Shai Yota's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Dagah Keek",
+        "trial_name": "Dagah Keek's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Kah Mael",
+        "trial_name": "Drop and Rise",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ne'ez Yohma",
+        "trial_name": "Pushing Power",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Soh Kofi",
+        "trial_name": "A Minor Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
+  },
+  {
+    "tower": "Ridgeland",
+    "shrines": []
+  },
+  {
+    "tower": "Tabantha",
+    "shrines": []
+  },
+  {
+    "tower": "Wastelands",
+    "shrines": []
+  },
+  {
+    "tower": "Woodland",
+    "shrines": []
+  },
+  {
+    "tower": "Hateno",
+    "shrines": []
+  }
+]
+}
