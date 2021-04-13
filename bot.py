@@ -1,6 +1,10 @@
 import discord
 from discord.ext import commands
+import os
 
-TOKEN = "ODMxMzAwNjc2NTk5ODA4MDEx.YHTPFg.o8tEpy_iB6xZ8Q382h0DN9RXQmk"
+if os.getenv("HOME") != '/app':
+    from environment import *
+
+TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
 client = commands.Bot(command_prefix=['z.', 'Z.'], intents=intents)
