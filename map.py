@@ -26,8 +26,8 @@ async def regions(ctx):
 
 
 @show.command(aliases=['shrine'])
-async def shrines(ctx, arg: int):
-    region = map_data['regions'][arg]
+async def shrines(ctx, region_id: int):
+    region = get_region(region_id)
     region_name = region['tower']
     output_string = ""
 
@@ -41,6 +41,26 @@ async def shrines(ctx, arg: int):
     )
     embed.add_field(name='Shrine - ID:', value=output_string)
     embed.set_footer(text="Use \"z.travel shrine <region-id> <shrine-id>\" to travel to a shrine!")
+
+    await ctx.send(embed=embed)
+
+
+@client.command()
+async def travel(ctx, region_id: int, shrine_id: int):
+    try:
+        region = get_region(region_id)
+        shrine = get_shrine(region_id, shrine_id)
+    except:
+        await ctx.reply("Invalid region or shrine ID.")
+        return
+
+    embed = discord.Embed(
+        title=f"{shrine['name']} Shrine"
+    )
+    embed.add_field(name='Location:', value=f"{region['tower']} Region", inline=False)
+    embed.add_field(name='Question:', value=shrine['puzzle_question'], inline=False)
+    embed.add_field(name='Answer:', value=shrine['puzzle_answer'], inline=False)
+    embed.set_footer(text=f"Shrine ID: {region_id}-{shrine_id}")
 
     await ctx.send(embed=embed)
 
