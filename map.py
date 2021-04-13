@@ -40,6 +40,24 @@ async def shrines(ctx, region_id: int):
     await ctx.send(embed=embed)
 
 
+@show.command(aliases=['loc', 'location'])
+async def locations(ctx, region_id: int):
+    region = get_region(region_id)
+    region_name = region['tower']
+
+    output_string_1, output_string_2 = two_col_output(region['locations'], 'name')
+
+    embed = discord.Embed(
+        title=f"Showing Locations in the {region_name} Region ({region_id})"
+    )
+    embed.add_field(name='Location - ID:', value=output_string_1, inline=True)
+    embed.add_field(name='** **', value=output_string_2, inline=True)
+    embed.set_footer(text="Use \"z.travel shrine <region-id> <location-id>\" to travel to a location!")
+    embed.set_image(url="https://i.redd.it/w09wxsvckad31.jpg")
+
+    await ctx.send(embed=embed)
+
+
 @client.command()
 async def travel(ctx, region_id: int, shrine_id: int):
     try:
