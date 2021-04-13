@@ -112,6 +112,50 @@
         "puzzle_question": "What is 2 / 2?",
         "puzzle_answer": "1"
       }
+    ],
+    "locations": [
+      {
+        "name": "Temple of Time",
+        "image_url": "",
+        "loot_level": 1,
+        "enemy_level": 1
+      },
+      {
+        "name": "River of the Dead",
+        "image_url": "",
+        "loot_level": 1,
+        "enemy_level": 1
+      },
+      {
+        "name": "Mount Hylia",
+        "image_url": "",
+        "loot_level": 1,
+        "enemy_level": 1
+      },
+      {
+        "name": "Hopper Pond",
+        "image_url": "",
+        "loot_level": 1,
+        "enemy_level": 1
+      },
+      {
+        "name": "Great Plateau",
+        "image_url": "",
+        "loot_level": 1,
+        "enemy_level": 1
+      },
+      {
+        "name": "Forest of Spirits",
+        "image_url": "",
+        "loot_level": 1,
+        "enemy_level": 1
+      },
+      {
+        "name": "Eastern Abbey",
+        "image_url": "",
+        "loot_level": 1,
+        "enemy_level": 1
+      }
     ]
   },
   {
