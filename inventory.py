@@ -191,14 +191,21 @@ async def elixirs(ctx):
 
 @client.command(aliases=['give'])
 async def get(ctx, *args):
+    # variables
     user_id = ctx.author.id
+    nullCheckArr = ['handheld', 'bows', 'arrows', 'shields', 'armor', 'food', 'elixirs', 'key_items']
     # check if they are registered
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
     if dictCur.fetchall() == []:
         await ctx.send("Please register using 'z.register'")
         return
-    #updateDatabase(user_id, args[0], args[1])
-    await ctx.send(f"haha i know you wanted a {args[0]}, it doesn't work yet ;)")
+    # nullcheck
+    if len(args) < 2: return
+    if args[1] not in nullCheckArr:
+        await ctx.send(f"There is no slot named '{args[1]}'.")
+        return
+    updateDatabase(user_id, args[0], args[1])
+    await ctx.send(f"You gave yourself a {args[0]}. You cheater. I'm dissapointed in you.")
 
 
 @client.command()
@@ -207,14 +214,15 @@ async def equip(ctx, *args):
     nullCheckArr = ['head', 'body', 'legs', 'weapon', 'shield', 'bow', 'arrows']
     user_id = str(ctx.author.id)
     itemLocation = ""
+    itemDurability = 0
     # check if they are registered
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
     if dictCur.fetchall() == []:
         await ctx.send("Please register using 'z.register'")
         return
     # nullchecks
-    if not args: return
-    if args[1] not in nullCheckArr: 
+    if len(args) < 2: return
+    if args[1] not in nullCheckArr:
         await ctx.send(f"There is no slot named '{args[1]}'.")
         return
     # get the data
@@ -230,24 +238,27 @@ async def equip(ctx, *args):
             await ctx.send(f"You already have a {args[0]} in your {args[1]} slot.")
             return
     # check if you have the item in your inventory
-    #print(userDict)
     for weaponDict in userDict['weapons']['handheld']:
         if args[0] == weaponDict['name']:
-            itemLocation = "handheld"
+            itemLocation = userDict['weapons']['handheld']
     for weaponDict in userDict['weapons']['bows']:
         if args[0] == weaponDict['name']:
-            itemLocation = "bows"
+            itemLocation = userDict['weapons']['bows']
     if args[0] in userDict['weapons']['arrows']:
-        itemLocation = "arrows"
+        itemLocation = userDict['weapons']['arrows']
     if args[0] in userDict['armor']:
-        itemLocation = "armor"
+        itemLocation = userDict['armor']
     elif args[0] in userDict['key_items']:
-        itemLocation = "key_items"
+        itemLocation = userDict['key_items']
     if itemLocation == "":
         await ctx.send(f"You don't have a '{args[0]}''.")
         return
+    # get the durability
+    for location in itemLocation:
+        if args[0] == location['name']:
+            itemDurability = location['durability']
     # put the item in the slot
-    equipFunc(user_id, args[1], args[0])
+    equipFunc(user_id, args[0], args[1], itemDurability)
     await ctx.send(f"Equipped '{args[0][0:1].upper()}{args[0][1:]}' to your {args[1][0:1].upper()}{args[1][1:]} slot.")
 @client.command()
 async def unequip(ctx, *args):
@@ -268,13 +279,13 @@ async def unequip(ctx, *args):
     if dictCur.fetchone()['equipped'][args[0]]['name'] == "":
         await ctx.send(f"You don't have anything in the {args[0]} slot.")
         return
-    # get the data
+    # unequip item
+    unequipFunc(user_id, args[0])
+    # get the name of the item that was unequipped
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
     userDict = dictCur.fetchone()['equipped']
     item = userDict[args[0]]['name']
-    userDict[args[0]] = {'name': '', 'durability': 0}
-    dictCur.execute("UPDATE inventory SET equipped = %s WHERE user_id = %s", (Json(userDict), str(user_id)))
-    conn.commit()
+    # print
     await ctx.send(f"Unequipped '{item[0:1].upper()}{item[1:]}' from your {args[0][0:1].upper()}{args[0][1:]} slot.")
 
 
@@ -298,39 +309,78 @@ async def unequip(ctx, *args):
 # }
 
 
-def equipFunc(user_id: str, slot: str, item: str):
+def equipFunc(user_id: str, item: str, slot: str, durability: int):
+    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
+    s = dictCur.fetchone()
+    weaponDict = s['weapons']
+    itemDict = s['equipped']
+    itemDict[slot] = {'name': item, 'durability': durability}
+    dictCur.execute("UPDATE inventory SET equipped = %s WHERE user_id = %s", (Json(itemDict), user_id))
+    conn.commit()
+def unequipFunc(user_id: str, slot: str):
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
     s = dictCur.fetchone()
     itemDict = s['equipped']
-    itemDict[slot] = {'name': item, 'durability': 1000}
+    itemDict[slot] = {'name': '', 'durability': 0}
     dictCur.execute("UPDATE inventory SET equipped = %s WHERE user_id = %s", (Json(itemDict), user_id))
-    conn.commit()
 
 # I have not made this work yet, and it doesn't get called so don't worry
-def updateDatabase(user_id: int, column: str, item: str):
+def updateDatabase(user_id: int, item: str, slot: str):
+    # variables
     user_id = str(user_id)
+    itemFound = False
+    # get the dictionary
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
     s = dictCur.fetchone()
-    if column == 'weapons' or column == 'armor':
-        itemArr = s[column]
-        itemArr.append(item)
-        if column == 'weapons':
-            dictCur.execute("UPDATE inventory SET weapons = %s WHERE user_id = %s", (itemArr, user_id))
+    itemDict = {}
+    rootColumn = ""
+    if slot == 'handheld' or slot == 'bows' or slot == 'arrows':
+        itemDict = s['weapons']
+        rootColumn = "weapons"
+    elif slot == 'food' or slot == 'elixirs':
+        itemDict = s['consumables']
+        rootColumn = "consumables"
+    else:
+        if slot == "key_items":
+            itemDict = s
         else:
-            dictCur.execute("UPDATE inventory SET armor = %s WHERE user_id = %s", (itemArr, user_id))
-        conn.commit()
-    elif column == 'equipped' or column == 'food' or column == 'key_items' or column == 'elixirs':
-        itemDict = s[column]
-        if item in itemDict.keys():
-            itemDict[item] += 1
-        else:
-            itemDict[item] = 1
-        if column == 'equipped':
-            dictCur.execute("UPDATE inventory SET equipped = %s WHERE user_id = %s", (Json(itemDict), user_id))
-        elif column == 'food':
-            dictCur.execute("UPDATE inventory SET food = %s WHERE user_id = %s", (Json(itemDict), user_id))
-        elif column == 'key_items':
-            dictCur.execute("UPDATE inventory SET key_items = %s WHERE user_id = %s", (Json(itemDict), user_id))
-        else:
-            dictCur.execute("UPDATE inventory SET elixirs = %s WHERE user_id = %s", (Json(itemDict), user_id))
-        conn.commit()
+            itemDict = s[slot]
+        rootColumn = slot
+    # add the item to the itemDict
+    if rootColumn == "consumables" or rootColumn == "key_items":
+        for i in itemDict[slot]:
+            if i['name'] == item:
+                i['durability'] += 1
+                #s['consumables'] = itemDict
+                itemFound = True
+                break
+        if not itemFound:
+            itemDict[slot].append({'name': item, 'durability': 1})
+            #s['consumables'] = itemDict
+    elif slot == "arrows":
+        for i in itemDict[slot]:
+            if i['name'] == item:
+                i['durability'] += 1
+                #s['weapons'] = itemDict
+                itemFound = True
+                break
+        if not itemFound:
+            itemDict[slot].append({'name': item, 'durability': 1})
+            #s['weapons'] = itemDict
+    elif slot == "shields" or slot == "armor":
+        itemDict.append({'name': item, 'durability': 1})
+    else:
+        itemDict[slot].append({'name': item, 'durability': 1})
+        s[rootColumn] = itemDict
+    # put the itemDict into the big dictionary
+    if rootColumn == "weapons":
+        dictCur.execute("UPDATE inventory SET weapons = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
+    elif rootColumn == "shields":
+        dictCur.execute("UPDATE inventory SET shields = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
+    elif rootColumn == "armor":
+        dictCur.execute("UPDATE inventory SET armor = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
+    elif rootColumn == "consumables":
+        dictCur.execute("UPDATE inventory SET consumables = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
+    elif rootColumn == "key_items":
+        dictCur.execute("UPDATE inventory SET key_items = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
+    conn.commit()
