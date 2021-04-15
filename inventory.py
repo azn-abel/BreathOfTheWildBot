@@ -12,7 +12,13 @@ async def inv(ctx, *args):
         return
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
     s = dictCur.fetchone()
-    await ctx.send(s)
+    embed = discord.Embed (
+        title = "How Your Inventory Works"
+    )
+    embed.add_field(name="**Syntax**", value="'z.inv <page>'", inline=False)
+    embed.add_field(name="**Pages**", value="You can search your inventory for: \nweapons, shields, armor, food, elixirs, and key_items", inline=False)
+    embed.set_footer(text="Footer lol")
+    await ctx.send(embed=embed)
 @inv.command()
 async def equipped(ctx):
     user_id = ctx.author.id
@@ -24,26 +30,18 @@ async def equipped(ctx):
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
     s = dictCur.fetchone()
     embed = discord.Embed (
-        Title = "Showing Equipped Items"
+        title = "Showing Equipped Items"
     )
-    if s['equipped'] != {}:
-        strArr = ['head', 'body', 'legs', 'weapon', 'shield', 'bow', 'arrows']
-        output_text = ""
-        # print(s['equipped'])
-        for item in strArr:
-            item_name = s['equipped'][item]['name']
-            if item_name != "":
-                output_text += f"**{item[0:1].upper()}{item[1:]}**: {s['equipped'][item]['name']}\n"
-            else:
-                output_text += f"**{item[0:1].upper()}{item[1:]}**: None\n"
-    else:
-        output_text = "You don't have anything equipped"
-    if output_text == "You don't have anything equipped":
-        embed.add_field(name=output_text, value="** **")
-        embed.set_footer(text="Very sad :(")
-    else:
-        embed.add_field(name="Equipped Items", value=output_text, inline=True)
-        embed.set_footer(text="Footer")
+    embed.set_footer(text="Footer")
+    strArr = ['head', 'body', 'legs', 'weapon', 'shield', 'bow', 'arrows']
+    haveEquipped = False
+    for item in strArr:
+        item_name = s['equipped'][item]['name']
+        if item_name != "":
+            item_value = str(s['equipped'][item]['name'])
+            embed.add_field(name=f"**{item[0:1].upper()}{item[1:]}**", value=f"{item_value[0:1].upper()}{item_value[1:]}", inline=True)
+        else:
+            embed.add_field(name=f"**{item[0:1].upper()}{item[1:]}**", value="None", inline=True)
     await ctx.send(embed=embed)
 @inv.command(aliases=['weapon'])
 async def weapons(ctx):
@@ -60,8 +58,9 @@ async def weapons(ctx):
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
     s = dictCur.fetchone()
     embed = discord.Embed (
-        Title = "Showing Weapons"
+        title = "Showing Weapons"
     )
+    embed.set_thumbnail(url="https://64.media.tumblr.com/d60a517dee172fe8be09165a838780ca/e3a1b45074258ba8-93/s1280x1920/e2cdc05c000c8057ef2fb3f713c1c8e48561143b.jpg")
     if str(s['weapons']) != "{'handheld': [{}], 'bows': [{}], 'arrows': {}}":
         for item in s['weapons']['handheld']:
             handheld_text += f"{item}\n"
@@ -94,9 +93,8 @@ async def armor(ctx):
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
     s = dictCur.fetchone()
     embed = discord.Embed (
-        Title = "Showing Armor"
+        title = "Showing Armor"
     )
-    print(s['armor'])
     if s['armor'] != {}:
         output_text = ""
         for item in s['armor']:
@@ -121,7 +119,7 @@ async def food(ctx):
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
     s = dictCur.fetchone()
     embed = discord.Embed (
-        Title = "Showing Food"
+        title = "Showing Food"
     )
     if s['consumables']['food'] != {}:
         output_text = ""
@@ -147,7 +145,7 @@ async def key_items(ctx):
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
     s = dictCur.fetchone()
     embed = discord.Embed (
-        Title = "Showing Key Items"
+        title = "Showing Key Items"
     )
     if s['key_items'] != {}:
         output_text = ""
@@ -173,7 +171,7 @@ async def elixirs(ctx):
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
     s = dictCur.fetchone()
     embed = discord.Embed (
-        Title = "Showing Elixirs"
+        title = "Showing Elixirs"
     )
     if s['consumables']['elixirs'] != {}:
         output_text = ""
@@ -248,9 +246,36 @@ async def equip(ctx, *args):
     if itemLocation == "":
         await ctx.send(f"You don't have a '{args[0]}''.")
         return
-    print(itemLocation)
     # put the item in the slot
     equipFunc(user_id, args[1], args[0])
+    await ctx.send(f"Equipped '{args[0][0:1].upper()}{args[0][1:]}' to your {args[1][0:1].upper()}{args[1][1:]} slot.")
+@client.command()
+async def unequip(ctx, *args):
+    # variables
+    nullCheckArr = ['head', 'body', 'legs', 'weapon', 'shield', 'bow', 'arrows']
+    user_id = str(ctx.author.id)
+    # check if they are registered
+    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
+    if dictCur.fetchall() == []:
+        await ctx.send("Please register using 'z.register'")
+        return
+    # nullchecks
+    if not args: return
+    if args[0] not in nullCheckArr: 
+        await ctx.send(f"There is no slot named '{args[0]}'.")
+        return
+    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
+    if dictCur.fetchone()['equipped'][args[0]]['name'] == "":
+        await ctx.send(f"You don't have anything in the {args[0]} slot.")
+        return
+    # get the data
+    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
+    userDict = dictCur.fetchone()['equipped']
+    item = userDict[args[0]]['name']
+    userDict[args[0]] = {'name': '', 'durability': 0}
+    dictCur.execute("UPDATE inventory SET equipped = %s WHERE user_id = %s", (Json(userDict), str(user_id)))
+    conn.commit()
+    await ctx.send(f"Unequipped '{item[0:1].upper()}{item[1:]}' from your {args[0][0:1].upper()}{args[0][1:]} slot.")
 
 
 # weapons

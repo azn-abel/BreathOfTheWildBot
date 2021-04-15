@@ -14,10 +14,12 @@ async def register(ctx):
     if dictCur.fetchall() != []:
         await ctx.send("You are already registered...")
         return
-    jsonArr = Json({'handheld': [{}], 'bows': [{}], 'arrows': {}})
-    dictCur.execute("INSERT INTO inventory (user_id, equipped, weapons, shields, armor, consumables, key_items) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, Json({}), jsonArr, Json({}), Json({}), Json({'food': {}, 'elixirs': {}}), Json({})))
+    equippedDict = {'head': {'name': '', 'durability': 0}, 'body': {'name': '', 'durability': 0}, 'legs': {'name': '', 'durability': 0}, 'weapon': {'name': '', 'durability': 0}, 'shield': {'name': '', 'durability': 0}, 'bow': {'name': '', 'durability': 0}, 'arrows': {'name': '', 'durability': 0}}
+    weaponDict = {'handheld': [{'name': '', 'damage': 0, 'durability': 0}], 'bows': [{'name': '', 'damage': 0, 'durability': 0}], 'arrows': {'name': '', 'durability': 0}}
+    shieldDict = {'name': '', 'durability': 0}
+    armorDict = {'name': '', 'durability': 0}
+    consumableDict = {'food': {'name': '', 'durability': 0}, 'elixirs': {'name': '', 'durability': 0}}
+    key_itemsDict = {'name': '', 'amount': 0} # idk what we need to save here so this is a placeholder
+    dictCur.execute("INSERT INTO inventory (user_id, equipped, weapons, shields, armor, consumables, key_items) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, Json(equippedDict), Json(weaponDict), Json(shieldDict), Json(armorDict), Json(consumableDict), Json(key_itemsDict)))
     conn.commit()
     await ctx.send("You are now registered!")
-    # dictCur.execute("SELECT * FROM inventory")
-    # s = dictCur.fetchall()
-    # print(s)
