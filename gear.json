@@ -1,0 +1,40 @@
+{
+  "weapons":{
+    "handheld":{
+      "tree_branch": {
+        "name": "Tree Branch",
+        "damage": 2,
+        "durability": 4
+      },
+      "torch": {
+        "name": "Torch",
+        "damage": 2,
+        "durability": 8
+      },
+      "soup_ladle": {
+        "name": "Soup Ladle",
+        "damage": 4,
+        "durability": 5
+      }
+    },
+    "bows":{
+      "wooden_bow": {
+        "name": "Wooden Bow",
+        "damage": 4,
+        "durability": 20
+      },
+      "travelers_bow": {
+        "name": "Traveler's Bow",
+        "damage": 5,
+        "durability": 22
+      }
+    }
+  },
+  "shields":{
+    "pot_lid": {
+      "name": "Pot Lid",
+      "guard": 1,
+      "durability": 10
+    }
+  }
+}
