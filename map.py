@@ -9,7 +9,7 @@ async def show(ctx):
     pass
 
 
-@show.command(aliases=['region'])
+@show.command(aliases=['region', 'reg'])
 async def regions(ctx):
     output_string_1, output_string_2 = two_col_output(map_data['regions'], 'tower')
 
@@ -54,7 +54,7 @@ async def locations(ctx, region_id: int):
     )
     embed.add_field(name='Location - ID:', value=output_string_1, inline=True)
     embed.add_field(name='** **', value=output_string_2, inline=True)
-    embed.set_footer(text="Use \"z.travel shrine <region-id> <location-id>\" to travel to a location!")
+    embed.set_footer(text="Use \"z.travel loc <region-id> <location-id>\" to travel to a location!")
     embed.set_image(url="https://i.redd.it/w09wxsvckad31.jpg")
 
     await ctx.send(embed=embed)
@@ -86,7 +86,7 @@ async def shrine(ctx, region_id: int, shrine_id: int):
     await ctx.send(embed=embed)
 
 
-@travel.command()
+@travel.command(aliases=['loc'])
 async def location(ctx, region_id: int, location_id: int):
     try:
         region = get_region(region_id)
@@ -104,4 +104,5 @@ async def location(ctx, region_id: int, location_id: int):
 
     image = get_image(f"images/locations/{pattern.sub('', location['name']).lower()}")
     embed.set_image(url='attachment://image.png')
+
     await ctx.send(file=image, embed=embed)
