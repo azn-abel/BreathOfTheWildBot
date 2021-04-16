@@ -61,13 +61,22 @@ async def weapons(ctx):
         title = "Showing Weapons"
     )
     embed.set_thumbnail(url="https://64.media.tumblr.com/d60a517dee172fe8be09165a838780ca/e3a1b45074258ba8-93/s1280x1920/e2cdc05c000c8057ef2fb3f713c1c8e48561143b.jpg")
-    if str(s['weapons']) != "{'handheld': [{}], 'bows': [{}], 'arrows': {}}":
+    if str(s['weapons']) != "{'handheld': [{}], 'bows': [{}], 'arrows': [{}]}":
+        index = 1
         for item in s['weapons']['handheld']:
-            handheld_text += f"{item}\n"
+            if item['name'] != "":
+                handheld_text += f"**{index}:** {item['name'][0:1].upper()}{item['name'][1:]} - {item['damage']}\n"
+                index += 1
+        index = 1
         for item in s['weapons']['bows']:
-            bows_text += f"{item}\n"
+            if item['name'] != "":
+                bows_text += f"**{index}:** {item['name'][0:1].upper()}{item['name'][1:]} - {item['damage']}\n"
+                index += 1
+        index = 1
         for item in s['weapons']['arrows']:
-            arrows_text += f"{item}\n"
+            if item['name'] != "":
+                arrows_text += f"**{index}:** {item['name'][0:1].upper()}{item['name'][1:]}\n"
+                index += 1
     else:
         output_text = "You don't have any weapons"
     if output_text == "You don't have any weapons":
@@ -79,9 +88,12 @@ async def weapons(ctx):
         if bows_text != "":
             embed.add_field(name="Bows", value=bows_text, inline=True)
         if arrows_text != "":
-            embed.add_field(name="Arrows", value=arrows_text, inline=True)
+            embed.add_field(name="Arrows", value=arrows_text, inline=False)
         embed.set_footer(text="Footer")
     await ctx.send(embed=embed)
+@inv.command()
+async def shields(ctx):
+    await ctx.send("shields lol")
 @inv.command()
 async def armor(ctx):
     user_id = ctx.author.id
@@ -95,7 +107,8 @@ async def armor(ctx):
     embed = discord.Embed (
         title = "Showing Armor"
     )
-    if s['armor'] != {}:
+    if s['armor'] != [{}]:
+        print(s['armor'])
         output_text = ""
         for item in s['armor']:
             output_text += f"{item}\n"
@@ -105,7 +118,7 @@ async def armor(ctx):
         embed.add_field(name=output_text, value="** **")
         embed.set_footer(text="Very sad :(")
     else:
-        embed.add_field(name="Amor", value=output_text, inline=True)
+        embed.add_field(name="Armor", value=output_text, inline=True)
         embed.set_footer(text="Footer")
     await ctx.send(embed=embed)
 @inv.command()
@@ -121,7 +134,7 @@ async def food(ctx):
     embed = discord.Embed (
         title = "Showing Food"
     )
-    if s['consumables']['food'] != {}:
+    if s['consumables']['food'] != [{}]:
         output_text = ""
         for item in s['consumables']['food']:
             output_text += f"{item}\n"
@@ -132,32 +145,6 @@ async def food(ctx):
         embed.set_footer(text="Very sad :(")
     else:
         embed.add_field(name="Food", value=output_text, inline=True)
-        embed.set_footer(text="Footer")
-    await ctx.send(embed=embed)
-@inv.command()
-async def key_items(ctx):
-    user_id = ctx.author.id
-    # check if they are registered
-    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
-    if dictCur.fetchall() == []:
-        await ctx.send("Please register using 'z.register'")
-        return
-    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
-    s = dictCur.fetchone()
-    embed = discord.Embed (
-        title = "Showing Key Items"
-    )
-    if s['key_items'] != {}:
-        output_text = ""
-        for item in s['key_items']:
-            output_text += f"{item}\n"
-    else:
-        output_text = "You don't have any key items"
-    if output_text == "You don't have any key items":
-        embed.add_field(name=output_text, value="** **")
-        embed.set_footer(text="Very sad :(")
-    else:
-        embed.add_field(name="Key Items", value=output_text, inline=True)
         embed.set_footer(text="Footer")
     await ctx.send(embed=embed)
 @inv.command()
@@ -173,7 +160,7 @@ async def elixirs(ctx):
     embed = discord.Embed (
         title = "Showing Elixirs"
     )
-    if s['consumables']['elixirs'] != {}:
+    if s['consumables']['elixirs'] != [{}]:
         output_text = ""
         for item in s['consumables']['elixirs']:
             output_text += f"{item}\n"
@@ -185,6 +172,32 @@ async def elixirs(ctx):
     else:
         embed.add_field(name="Elixirs", value=output_text, inline=True)
         embed.set_image(url="https://static.wikia.nocookie.net/zelda_gamepedia_en/images/9/9d/BotW_Hasty_Elixir_Icon.png/revision/latest/scale-to-width-down/320?cb=20171228104522")
+        embed.set_footer(text="Footer")
+    await ctx.send(embed=embed)
+@inv.command()
+async def key_items(ctx):
+    user_id = ctx.author.id
+    # check if they are registered
+    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
+    if dictCur.fetchall() == []:
+        await ctx.send("Please register using 'z.register'")
+        return
+    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
+    s = dictCur.fetchone()
+    embed = discord.Embed (
+        title = "Showing Key Items"
+    )
+    if s['key_items'] != [{}]:
+        output_text = ""
+        for item in s['key_items']:
+            output_text += f"{item}\n"
+    else:
+        output_text = "You don't have any key items"
+    if output_text == "You don't have any key items":
+        embed.add_field(name=output_text, value="** **")
+        embed.set_footer(text="Very sad :(")
+    else:
+        embed.add_field(name="Key Items", value=output_text, inline=True)
         embed.set_footer(text="Footer")
     await ctx.send(embed=embed)
 
@@ -260,6 +273,7 @@ async def equip(ctx, *args):
     # put the item in the slot
     equipFunc(user_id, args[0], args[1], itemDurability)
     await ctx.send(f"Equipped '{args[0][0:1].upper()}{args[0][1:]}' to your {args[1][0:1].upper()}{args[1][1:]} slot.")
+    await equipped(ctx)
 @client.command()
 async def unequip(ctx, *args):
     # variables
@@ -287,6 +301,7 @@ async def unequip(ctx, *args):
     item = userDict[args[0]]['name']
     # print
     await ctx.send(f"Unequipped '{item[0:1].upper()}{item[1:]}' from your {args[0][0:1].upper()}{args[0][1:]} slot.")
+    await equipped(ctx)
 
 
 # weapons
@@ -324,7 +339,7 @@ def unequipFunc(user_id: str, slot: str):
     itemDict[slot] = {'name': '', 'durability': 0}
     dictCur.execute("UPDATE inventory SET equipped = %s WHERE user_id = %s", (Json(itemDict), user_id))
 
-# I have not made this work yet, and it doesn't get called so don't worry
+# I worked too hard on something that won't actually be in the game...
 def updateDatabase(user_id: int, item: str, slot: str):
     # variables
     user_id = str(user_id)
@@ -334,6 +349,7 @@ def updateDatabase(user_id: int, item: str, slot: str):
     s = dictCur.fetchone()
     itemDict = {}
     rootColumn = ""
+    # set the dictionary and rootColumn
     if slot == 'handheld' or slot == 'bows' or slot == 'arrows':
         itemDict = s['weapons']
         rootColumn = "weapons"
