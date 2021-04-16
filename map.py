@@ -58,8 +58,13 @@ async def locations(ctx, region_id: int):
     await ctx.send(embed=embed)
 
 
-@client.command()
-async def travel(ctx, region_id: int, shrine_id: int):
+@client.group(invoke_without_command=False)
+async def travel(ctx):
+    pass
+
+
+@travel.command()
+async def shrine(ctx, region_id: int, shrine_id: int):
     try:
         region = get_region(region_id)
         shrine = get_shrine(region_id, shrine_id)
@@ -70,7 +75,7 @@ async def travel(ctx, region_id: int, shrine_id: int):
     embed = discord.Embed(
         title=f"{shrine['name']} Shrine"
     )
-    embed.add_field(name='Location:', value=f"{region['tower']} Region", inline=False)
+    embed.add_field(name='Region:', value=f"{region['tower']}", inline=False)
     embed.add_field(name='Question:', value=shrine['puzzle_question'], inline=False)
     embed.add_field(name='Answer:', value=shrine['puzzle_answer'], inline=False)
     embed.set_footer(text=f"Shrine ID: {region_id}-{shrine_id}")
@@ -78,3 +83,22 @@ async def travel(ctx, region_id: int, shrine_id: int):
 
     await ctx.send(embed=embed)
 
+
+@travel.command()
+async def location(ctx, region_id: int, location_id: int):
+    try:
+        region = get_region(region_id)
+        location = get_location(region_id, location_id)
+    except:
+        await ctx.reply("Invalid region or shrine ID.")
+        return
+
+    embed = discord.Embed(
+        title=f"{location['name']}"
+    )
+    embed.add_field(name='Region:', value=f"{region['tower']}", inline=False)
+    embed.add_field(name='Use `z.hunt` or `z.forage` to obtain resources from this area!', value="** **", inline=False)
+    embed.set_footer(text=f"Location ID: {region_id}-{location_id}")
+    image = get_image(f"images/locations/{'_'.join(location['name'].lower().split(' '))}")
+    embed.set_image(url='attachment://image.png')
+    await ctx.send(file=image, embed=embed)

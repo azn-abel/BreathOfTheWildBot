@@ -1,16 +1,26 @@
 import json
+import discord
 
 map_data = json.load(open('map.json',))
 
 
 def get_region(region_id):
-    region = map_data['regions'][region_id]
-    return region
+    return map_data['regions'][region_id]
 
 
 def get_shrine(region_id, shrine_id):
-    shrine = map_data['regions'][region_id]['shrines'][shrine_id]
-    return shrine
+    return map_data['regions'][region_id]['shrines'][shrine_id]
+
+
+def get_location(region_id, location_id):
+    return map_data['regions'][region_id]['locations'][location_id]
+
+
+def get_image(path):
+    try:
+        return discord.File(f"{path}.png", filename="image.png")
+    except:
+        return discord.File(f"{path}.jpg", filename="image.png")
 
 
 def two_col_output(lst, key):
