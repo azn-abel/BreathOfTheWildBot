@@ -92,7 +92,7 @@ async def location(ctx, region_id: int, location_id: int):
         region = get_region(region_id)
         location = get_location(region_id, location_id)
     except:
-        await ctx.reply("Invalid region or shrine ID.")
+        await ctx.reply("Invalid region or location ID.")
         return
 
     embed = discord.Embed(
