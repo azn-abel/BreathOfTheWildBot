@@ -1,6 +1,8 @@
 from bot import *
 from data import *
+import re
 
+pattern = re.compile('[\W_]+')
 
 @client.group(invoke_without_command=False)
 async def show(ctx):
@@ -99,6 +101,7 @@ async def location(ctx, region_id: int, location_id: int):
     embed.add_field(name='Region:', value=f"{region['tower']}", inline=False)
     embed.add_field(name='Use `z.hunt` or `z.forage` to obtain resources from this area!', value="** **", inline=False)
     embed.set_footer(text=f"Location ID: {region_id}-{location_id}")
-    image = get_image(f"images/locations/{'_'.join(location['name'].lower().split(' '))}")
+
+    image = get_image(f"images/locations/{pattern.sub('', location['name']).lower()}")
     embed.set_image(url='attachment://image.png')
     await ctx.send(file=image, embed=embed)
