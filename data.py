@@ -16,6 +16,19 @@ def get_location(region_id, location_id):
     return map_data['regions'][region_id]['locations'][location_id]
 
 
+def get_shop(region_id, shop_id):
+    return map_data['regions'][region_id]['shops'][shop_id]
+
+
+def shop_stock_display(shop):
+    output = ""
+    for x in range(0, len(shop['products'])):
+        product = shop['products'][x]
+        output += f"**{x}:** {product['name']} - {product['price']} Rupees each, {product['stock']} in stock.\n"
+
+    return output
+
+
 def get_image(path):
     try:
         return discord.File(f"{path}.png", filename="image.png")

@@ -156,6 +156,19 @@
         "loot_level": 1,
         "enemy_level": 1
       }
+    ],
+    "shops": [
+      {
+        "name": "Example Shop",
+        "products": [
+          {
+            "name": "Example Item",
+            "item": "example_item",
+            "price": 50,
+            "stock": 10
+          }
+        ]
+      }
     ]
   },
   {
