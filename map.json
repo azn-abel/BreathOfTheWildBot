@@ -166,6 +166,18 @@
             "item": "example_item",
             "price": 50,
             "stock": 10
+          },
+          {
+            "name": "Example Item 2",
+            "item": "example_item_2",
+            "price": 30,
+            "stock": 50
+          },
+          {
+            "name": "Example Item 2",
+            "item": "example_item_2",
+            "price": 10,
+            "stock": 20
           }
         ]
       }
