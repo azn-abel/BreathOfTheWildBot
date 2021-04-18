@@ -95,12 +95,12 @@ async def shrine(ctx, region_id: int, shrine_id: int):
         return
 
     embed = discord.Embed(
-        title=f"{shrine['name']} Shrine"
+        title=f"{shrine['name']} Shrine ({region_id}-{shrine_id})"
     )
     embed.add_field(name='Region:', value=f"{region['tower']}", inline=False)
     embed.add_field(name='Question:', value=shrine['puzzle_question'], inline=False)
     embed.add_field(name='Answer:', value=shrine['puzzle_answer'], inline=False)
-    embed.set_footer(text=f"Shrine ID: {region_id}-{shrine_id}")
+    embed.set_footer(text=f'Use "z.solve <region-id> <shrine-id> <solution>" to conquer the shrine!')
     embed.set_image(url="https://cdn.vox-cdn.com/thumbor/R73CXU-Og3tdWbfRYTg6zpqTCY4=/0x0:1920x1080/1200x800/filters:focal(807x387:1113x693)/cdn.vox-cdn.com/uploads/chorus_image/image/64062748/challenge_dungeon_temple_things.0.jpg")
 
     await ctx.send(embed=embed)
@@ -149,3 +149,18 @@ async def shops(ctx, region_id: int, shop_id: int):
     embed.set_image(url='attachment://image.png')
 
     await ctx.send(file=image, embed=embed)
+
+
+@client.command()
+async def solve(ctx, region_id: int, shrine_id: int, solution):
+    try:
+        region = get_region(region_id)
+        shrine = get_shrine(region_id, shrine_id)
+    except:
+        await ctx.reply("Invalid region or shrine ID.")
+        return
+
+    if solution.lower() == shrine['puzzle_answer'].lower():
+        await ctx.reply("Correct! You earned 1 Spirit Orb!")
+    else:
+        await ctx.reply("Incorrect. Try again.")
