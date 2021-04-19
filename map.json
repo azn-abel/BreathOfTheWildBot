@@ -2,11 +2,110 @@
 "regions": [
   {
     "tower": "Akkala",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Katosa Aug",
+        "trial_name": "Katosa Aug Apparatus",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Dah Hesho",
+        "trial_name": "A Minor Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ze Kasho",
+        "trial_name": "Ze Kasho Apparatus",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Tutsuwa Nima",
+        "trial_name": "The Spring of Power",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ke'nai Shakah",
+        "trial_name": "A Modest Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Zuna Kai",
+        "trial_name": "The Skull's Eye",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Tu Ka'loh",
+        "trial_name": "The Trail of the Labyrinth",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ritaag Zumo",
+        "trial_name": "Into the Vortex",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+
+    ]
   },
   {
     "tower": "Central",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Dah Kaso",
+        "trial_name": "A Minor Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Wahgo Katta",
+        "trial_name": "Metal Connections",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Rota Ooh",
+        "trial_name": "Passing of the Gates",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Kaam Ya'tak",
+        "trial_name": "Trial of Power",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Katah Chuki",
+        "trial_name": "A Minor Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Noya Neha",
+        "trial_name": "A Minor Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Saas Ko'sah",
+        "trial_name": "A Major Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Namika Ozz",
+        "trial_name": "A Modest Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
   },
   {
     "tower": "Dueling Peaks",
@@ -73,11 +172,97 @@
   },
   {
     "tower": "Faron",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Shoda Sah",
+        "trial_name": "Impeccable Timing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Qukah Nata",
+        "trial_name": "A Song of Storms",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Shai Utoh",
+        "trial_name": "Halt the Tilt",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Muwo Jeem",
+        "trial_name": "A Modest Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Tawa Jinn",
+        "trial_name": "The Three Giant Brothers",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Yah Rin",
+        "trial_name": "A Weighty Decision",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Kah Yah",
+        "trial_name": "A Fragmented Monument",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Korgu Chideh",
+        "trial_name": "Stranded on Eventide",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
   },
   {
     "tower": "Gerudo",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Kuh Takkar",
+        "trial_name": "Melting Ice Hazard",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Sasa Kai",
+        "trial_name": "A Moderate Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Sho Dantu",
+        "trial_name": "Two Bombs",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Joloo Nah",
+        "trial_name": "Joloo Nah Apparatus",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Kema Kosassa",
+        "trial_name": "A Major Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Keeha Yoog",
+        "trial_name": "Keeha Yoog's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
   },
   {
     "tower": "Great Plateau",
@@ -185,11 +370,127 @@
   },
   {
     "tower": "Hebra",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Rin Oyaa",
+        "trial_name": "Directing the Wind",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Sha Gehma",
+        "trial_name": "Shift and Lock",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Hia Miu",
+        "trial_name": "A Major Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Mozo Shenno",
+        "trial_name": "A Major Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Shada Naw",
+        "trial_name": "Red Giveaway",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Goma Asaagh",
+        "trial_name": "A Major Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "To Quomo",
+        "trial_name": "To Quomo's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Rok Uwog",
+        "trial_name": "Power of Reach",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Maka Rah",
+        "trial_name": "Steady Thy Heart",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Lanno Kooh",
+        "trial_name": "Lanno Kooh's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Dunba Taag",
+        "trial_name": "Build and Release",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Gee Ha'rah",
+        "trial_name": "Tandem",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Qaza Tokki",
+        "trial_name": "Trial on the Cliff",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
   },
   {
     "tower": "Lake",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Ka'o Makagh",
+        "trial_name": "Metal Doors Open the Way",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ya Naga",
+        "trial_name": "Shatter the Heavens",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Pumaag Nitae",
+        "trial_name": "A Minor Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Shae Katha",
+        "trial_name": "Shae Katha's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ishto Soh",
+        "trial_name": "Bravery's Grasp",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Shoqa Tatone",
+        "trial_name": "Guardian Slideshow",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
   },
   {
     "tower": "Lanaryu",
@@ -252,7 +553,50 @@
   },
   {
     "tower": "Ridgeland",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Toh Yahsa",
+        "trial_name": "Buried Secrets",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Mogg Latan",
+        "trial_name": "Synced Swing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Zalta Wa",
+        "trial_name": "Two Orbs to Guide You",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Shae Loya",
+        "trial_name": "Aim for the Moment",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Maag No'rah",
+        "trial_name": "Maag No'rah's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Sheem Dagoze",
+        "trial_name": "The Two Rings",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Mijah Rokee",
+        "trial_name": "Under a Red Moon",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
   },
   {
     "tower": "Tabantha",
@@ -260,15 +604,180 @@
   },
   {
     "tower": "Wastelands",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Daqo Chisay",
+        "trial_name": "The Whole Picture",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Jee Noh",
+        "trial_name": "On the Move",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Kay Noh",
+        "trial_name": "A Minor Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Dako Tah",
+        "trial_name": "Electric Path",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Tho Kayu",
+        "trial_name": "Tho Kayu's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Hawa Koth",
+        "trial_name": "The Current Solution",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Dila Maag",
+        "trial_name": "The Desert Labyrinth",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Raqa Zunzo",
+        "trial_name": "The Undefeated Champ",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Kema Zoos",
+        "trial_name": "The Silent Swordswomen",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Suma Sahma",
+        "trial_name": "Secret of the Snowy Peaks",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Korsh O'hu",
+        "trial_name": "The Seven Heroines",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Misae Suma",
+        "trial_name": "The Perfect Drink",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
   },
   {
     "tower": "Woodland",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Keo Ruug",
+        "trial_name": "Fateful Stars",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Daag Chokah",
+        "trial_name": "The Lost Pilgrimage",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Mirro Shaz",
+        "trial_name": "Tempered Power",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Monya Toma",
+        "trial_name": "Drawing Parabolas",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Ketoh Wawai",
+        "trial_name": "The Shrouded Shrine",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Rona Kachta",
+        "trial_name": "Rona Kachta's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Kuhn Sidajj",
+        "trial_name": "The Trial of Second Sight",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Maag Halan",
+        "trial_name": "The Test of Wood",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
   },
   {
     "tower": "Hateno",
-    "shrines": []
+    "shrines": [
+      {
+        "name": "Myahm Agana",
+        "trial_name": "Myahm Agana Apparatus",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Kam Urog",
+        "trial_name": "Trial of Passage",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Dow Na'eh",
+        "trial_name": "Three Boxes",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Jitan Sa'mi",
+        "trial_name": "Jitan Sa'mi's Blessing",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Mezza Lo",
+        "trial_name": "The Crowned Beast",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Tahno O'ah",
+        "trial_name": "Secret of the Cedars",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      },
+      {
+        "name": "Chaas Qeta",
+        "trial_name": "A Major Test of Strength",
+        "puzzle_question": "",
+        "puzzle_answer": ""
+      }
+    ]
   }
 ]
 }
