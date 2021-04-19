@@ -160,7 +160,4 @@ async def solve(ctx, region_id: int, shrine_id: int, solution):
         await ctx.reply("Invalid region or shrine ID.")
         return
 
-    if solution.lower() == shrine['puzzle_answer'].lower():
-        await ctx.reply("Correct! You earned 1 Spirit Orb!")
-    else:
-        await ctx.reply("Incorrect. Try again.")
+    await ctx.reply("Correct! You earned 1 Spirit Orb!") if solution.lower() == shrine['puzzle_answer'].lower() else await ctx.reply("Incorrect. Try again.")
