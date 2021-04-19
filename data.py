@@ -55,3 +55,7 @@ def get_surface(root, item):
 
 def get_deep(root, column, item):
     return gear_data[root][column][item]
+
+
+def EmptyMask(key):
+    return [[False for _ in region[key]] for region in map_data['regions']]
