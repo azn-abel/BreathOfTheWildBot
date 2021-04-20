@@ -60,3 +60,7 @@ def find_item(item):
     elif location == 'food':
         return [gear_data['consumables']['food'][i] for i in gear_data['consumables']['food'] if i == item][0]
     return None
+
+
+def EmptyMask(key):
+    return [[False for _ in region[key]] for region in map_data['regions']]
