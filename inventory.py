@@ -1,5 +1,6 @@
 from bot import *
 from database import *
+from data import *
 
 
 @client.group(aliases=['inventory'], invoke_without_command=True)
@@ -137,7 +138,7 @@ async def food(ctx):
     if s['consumables']['food'] != [{}]:
         output_text = ""
         for item in s['consumables']['food']:
-            output_text += f"{item}\n"
+            output_text += f"{s['consumables']['food'][item]['name']}: {s['consumables']['food'][item]['durability']}\n"
     else:
         output_text = "You don't have any food"
     if output_text == "You don't have any food":
@@ -344,59 +345,31 @@ def updateDatabase(user_id: int, item: str, slot: str):
     # variables
     user_id = str(user_id)
     itemFound = False
+    itemData = {}
+    sqlSet = None
     # get the dictionary
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
     s = dictCur.fetchone()
     itemDict = {}
     rootColumn = ""
     # set the dictionary and rootColumn
-    if slot == 'handheld' or slot == 'bows' or slot == 'arrows':
-        itemDict = s['weapons']
-        rootColumn = "weapons"
-    elif slot == 'food' or slot == 'elixirs':
-        itemDict = s['consumables']
-        rootColumn = "consumables"
-    else:
-        if slot == "key_items":
-            itemDict = s
-        else:
-            itemDict = s[slot]
-        rootColumn = slot
-    # add the item to the itemDict
-    if rootColumn == "consumables" or rootColumn == "key_items":
-        for i in itemDict[slot]:
-            if i['name'] == item:
-                i['durability'] += 1
-                #s['consumables'] = itemDict
-                itemFound = True
-                break
-        if not itemFound:
-            itemDict[slot].append({'name': item, 'durability': 1})
-            #s['consumables'] = itemDict
-    elif slot == "arrows":
-        for i in itemDict[slot]:
-            if i['name'] == item:
-                i['durability'] += 1
-                #s['weapons'] = itemDict
-                itemFound = True
-                break
-        if not itemFound:
-            itemDict[slot].append({'name': item, 'durability': 1})
-            #s['weapons'] = itemDict
-    elif slot == "shields" or slot == "armor":
-        itemDict.append({'name': item, 'durability': 1})
-    else:
-        itemDict[slot].append({'name': item, 'durability': 1})
-        s[rootColumn] = itemDict
+    itemDict = find_item(item)
+    rootColumn = item.split('_')[-1]
+    if rootColumn == "food" or rootColumn == "elixirs":
+        sqlSet = "consumables"
+        if itemDict:
+            try:
+                print(s['consumables'][rootColumn])
+                print(item)
+                s['consumables'][rootColumn][item]['durability'] += 1
+            except:
+                s['consumables'][rootColumn][item] = {'name': itemDict['name'], 'durability': 1}
     # put the itemDict into the big dictionary
-    if rootColumn == "weapons":
-        dictCur.execute("UPDATE inventory SET weapons = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
-    elif rootColumn == "shields":
-        dictCur.execute("UPDATE inventory SET shields = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
-    elif rootColumn == "armor":
-        dictCur.execute("UPDATE inventory SET armor = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
-    elif rootColumn == "consumables":
-        dictCur.execute("UPDATE inventory SET consumables = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
-    elif rootColumn == "key_items":
-        dictCur.execute("UPDATE inventory SET key_items = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
+    dictCur.execute("UPDATE inventory SET " + sqlSet + " = %s WHERE user_id = %s", (Json(s[sqlSet]), user_id))
     conn.commit()
+
+
+@client.command()
+async def data(ctx, *args):
+    itemLocation = find_item(args[0])
+    print(itemLocation[args[1]])
