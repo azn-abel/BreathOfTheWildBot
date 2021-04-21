@@ -1,17 +1,17 @@
 {
   "weapons":{
     "handheld":{
-      "tree_branch": {
+      "tree_branch_handheld": {
         "name": "Tree Branch",
         "damage": 2,
         "durability": 4
       },
-      "torch": {
+      "torch_handheld": {
         "name": "Torch",
         "damage": 2,
         "durability": 8
       },
-      "soup_ladle": {
+      "soup_ladle_handheld": {
         "name": "Soup Ladle",
         "damage": 4,
         "durability": 5
@@ -31,10 +31,24 @@
     }
   },
   "shields":{
-    "pot_lid": {
+    "pot_lid_shields": {
       "name": "Pot Lid",
       "guard": 1,
       "durability": 10
+    }
+  },
+  "armor":{
+
+  },
+  "consumables":{
+    "food":{
+      "apple_food":{
+        "name": "Apple",
+        "durability": 1
+      }
+    },
+    "elixirs":{
+
     }
   }
 }

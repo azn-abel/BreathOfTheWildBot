@@ -62,7 +62,7 @@ async def weapons(ctx):
         title = "Showing Weapons"
     )
     embed.set_thumbnail(url="https://64.media.tumblr.com/d60a517dee172fe8be09165a838780ca/e3a1b45074258ba8-93/s1280x1920/e2cdc05c000c8057ef2fb3f713c1c8e48561143b.jpg")
-    if str(s['weapons']) != "{'handheld': [{}], 'bows': [{}], 'arrows': [{}]}":
+    if str(s['weapons']) != "{'handheld': [], 'bows': [], 'arrows': []}":
         index = 1
         for item in s['weapons']['handheld']:
             if item['name'] != "":
@@ -203,25 +203,6 @@ async def key_items(ctx):
     await ctx.send(embed=embed)
 
 
-@client.command(aliases=['give'])
-async def get(ctx, *args):
-    # variables
-    user_id = ctx.author.id
-    nullCheckArr = ['handheld', 'bows', 'arrows', 'shields', 'armor', 'food', 'elixirs', 'key_items']
-    # check if they are registered
-    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
-    if dictCur.fetchall() == []:
-        await ctx.send("Please register using 'z.register'")
-        return
-    # nullcheck
-    if len(args) < 2: return
-    if args[1] not in nullCheckArr:
-        await ctx.send(f"There is no slot named '{args[1]}'.")
-        return
-    updateDatabase(user_id, args[0], args[1])
-    await ctx.send(f"You gave yourself a {args[0]}. You cheater. I'm dissapointed in you.")
-
-
 @client.command()
 async def equip(ctx, *args):
     # variables
@@ -339,34 +320,6 @@ def unequipFunc(user_id: str, slot: str):
     itemDict = s['equipped']
     itemDict[slot] = {'name': '', 'durability': 0}
     dictCur.execute("UPDATE inventory SET equipped = %s WHERE user_id = %s", (Json(itemDict), user_id))
-
-# I worked too hard on something that won't actually be in the game...
-def updateDatabase(user_id: int, item: str, slot: str):
-    # variables
-    user_id = str(user_id)
-    itemFound = False
-    itemData = {}
-    sqlSet = None
-    # get the dictionary
-    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
-    s = dictCur.fetchone()
-    itemDict = {}
-    rootColumn = ""
-    # set the dictionary and rootColumn
-    itemDict = find_item(item)
-    rootColumn = item.split('_')[-1]
-    if rootColumn == "food" or rootColumn == "elixirs":
-        sqlSet = "consumables"
-        if itemDict:
-            try:
-                print(s['consumables'][rootColumn])
-                print(item)
-                s['consumables'][rootColumn][item]['durability'] += 1
-            except:
-                s['consumables'][rootColumn][item] = {'name': itemDict['name'], 'durability': 1}
-    # put the itemDict into the big dictionary
-    dictCur.execute("UPDATE inventory SET " + sqlSet + " = %s WHERE user_id = %s", (Json(s[sqlSet]), user_id))
-    conn.commit()
 
 
 @client.command()
