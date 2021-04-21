@@ -402,14 +402,14 @@
         "name": "Example Shop",
         "products": [
           {
-            "name": "Example Item",
-            "item": "example_item",
+            "name": "Tree Branch",
+            "item": "tree_branch_handheld",
             "price": 50,
             "stock": 10
           },
           {
-            "name": "Example Item 2",
-            "item": "example_item_2",
+            "name": "Example Item 1",
+            "item": "example_item_1",
             "price": 30,
             "stock": 50
           },

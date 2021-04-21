@@ -1,5 +1,6 @@
 from bot import *
 from database import *
+from data import *
 
 
 @client.group(aliases=['inventory'], invoke_without_command=True)
@@ -61,7 +62,7 @@ async def weapons(ctx):
         title = "Showing Weapons"
     )
     embed.set_thumbnail(url="https://64.media.tumblr.com/d60a517dee172fe8be09165a838780ca/e3a1b45074258ba8-93/s1280x1920/e2cdc05c000c8057ef2fb3f713c1c8e48561143b.jpg")
-    if str(s['weapons']) != "{'handheld': [{}], 'bows': [{}], 'arrows': [{}]}":
+    if str(s['weapons']) != "{'handheld': [], 'bows': [], 'arrows': []}":
         index = 1
         for item in s['weapons']['handheld']:
             if item['name'] != "":
@@ -137,7 +138,7 @@ async def food(ctx):
     if s['consumables']['food'] != [{}]:
         output_text = ""
         for item in s['consumables']['food']:
-            output_text += f"{item}\n"
+            output_text += f"{s['consumables']['food'][item]['name']}: {s['consumables']['food'][item]['durability']}\n"
     else:
         output_text = "You don't have any food"
     if output_text == "You don't have any food":
@@ -200,25 +201,6 @@ async def key_items(ctx):
         embed.add_field(name="Key Items", value=output_text, inline=True)
         embed.set_footer(text="Footer")
     await ctx.send(embed=embed)
-
-
-@client.command(aliases=['give'])
-async def get(ctx, *args):
-    # variables
-    user_id = ctx.author.id
-    nullCheckArr = ['handheld', 'bows', 'arrows', 'shields', 'armor', 'food', 'elixirs', 'key_items']
-    # check if they are registered
-    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (str(user_id),))
-    if dictCur.fetchall() == []:
-        await ctx.send("Please register using 'z.register'")
-        return
-    # nullcheck
-    if len(args) < 2: return
-    if args[1] not in nullCheckArr:
-        await ctx.send(f"There is no slot named '{args[1]}'.")
-        return
-    updateDatabase(user_id, args[0], args[1])
-    await ctx.send(f"You gave yourself a {args[0]}. You cheater. I'm dissapointed in you.")
 
 
 @client.command()
@@ -339,64 +321,8 @@ def unequipFunc(user_id: str, slot: str):
     itemDict[slot] = {'name': '', 'durability': 0}
     dictCur.execute("UPDATE inventory SET equipped = %s WHERE user_id = %s", (Json(itemDict), user_id))
 
-# I worked too hard on something that won't actually be in the game...
-def updateDatabase(user_id: int, item: str, slot: str):
-    # variables
-    user_id = str(user_id)
-    itemFound = False
-    # get the dictionary
-    dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
-    s = dictCur.fetchone()
-    itemDict = {}
-    rootColumn = ""
-    # set the dictionary and rootColumn
-    if slot == 'handheld' or slot == 'bows' or slot == 'arrows':
-        itemDict = s['weapons']
-        rootColumn = "weapons"
-    elif slot == 'food' or slot == 'elixirs':
-        itemDict = s['consumables']
-        rootColumn = "consumables"
-    else:
-        if slot == "key_items":
-            itemDict = s
-        else:
-            itemDict = s[slot]
-        rootColumn = slot
-    # add the item to the itemDict
-    if rootColumn == "consumables" or rootColumn == "key_items":
-        for i in itemDict[slot]:
-            if i['name'] == item:
-                i['durability'] += 1
-                #s['consumables'] = itemDict
-                itemFound = True
-                break
-        if not itemFound:
-            itemDict[slot].append({'name': item, 'durability': 1})
-            #s['consumables'] = itemDict
-    elif slot == "arrows":
-        for i in itemDict[slot]:
-            if i['name'] == item:
-                i['durability'] += 1
-                #s['weapons'] = itemDict
-                itemFound = True
-                break
-        if not itemFound:
-            itemDict[slot].append({'name': item, 'durability': 1})
-            #s['weapons'] = itemDict
-    elif slot == "shields" or slot == "armor":
-        itemDict.append({'name': item, 'durability': 1})
-    else:
-        itemDict[slot].append({'name': item, 'durability': 1})
-        s[rootColumn] = itemDict
-    # put the itemDict into the big dictionary
-    if rootColumn == "weapons":
-        dictCur.execute("UPDATE inventory SET weapons = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
-    elif rootColumn == "shields":
-        dictCur.execute("UPDATE inventory SET shields = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
-    elif rootColumn == "armor":
-        dictCur.execute("UPDATE inventory SET armor = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
-    elif rootColumn == "consumables":
-        dictCur.execute("UPDATE inventory SET consumables = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
-    elif rootColumn == "key_items":
-        dictCur.execute("UPDATE inventory SET key_items = %s WHERE user_id = %s", (Json(s[rootColumn]), user_id))
-    conn.commit()
+
+@client.command()
+async def data(ctx, *args):
+    itemLocation = find_item(args[0])
+    print(itemLocation[args[1]])

@@ -49,12 +49,17 @@ def two_col_output(lst, key):
     return output_string_1, output_string_2
 
 
-def get_surface(root, item):
-    return gear_data[root][item]
-
-
-def get_deep(root, column, item):
-    return gear_data[root][column][item]
+def find_item(item):
+    location = item.split('_')[-1]
+    if location == 'handheld':
+        return [gear_data['weapons']['handheld'][i] for i in gear_data['weapons']['handheld'] if i == item][0]
+    elif location == 'bow':
+        return [gear_data['weapons']['bows'][i] for i in gear_data['weapons']['bows'] if i == item][0]
+    elif location == 'shields':
+        return [gear_data['shields'][i] for i in gear_data['shields'] if i == item][0]
+    elif location == 'food':
+        return [gear_data['consumables']['food'][i] for i in gear_data['consumables']['food'] if i == item][0]
+    return None
 
 
 def EmptyMask(key):
