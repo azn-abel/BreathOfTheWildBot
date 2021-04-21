@@ -45,7 +45,7 @@ async def buy(ctx, *args):
         return
     # test for enough stock
     if amount <= 0 or amount > item_stock:
-        ctx.send(f"Amount '{amount}' incorrect")
+        await ctx.send(f"Amount '{amount}' incorrect")
         return
     # test for enough rupees
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
@@ -63,6 +63,7 @@ async def buy(ctx, *args):
         s['weapons'][rootColumn].append({'name': item_name, 'damage': itemDict['damage'], 'durability': itemDict['durability'], 'item': item_item})
         sqlSet = "weapons"
         # print(s['weapons'])
+    
     # now put it in database
     dictCur.execute("UPDATE inventory SET " + sqlSet + " = %s WHERE user_id = %s", (Json(s[sqlSet]), user_id))
     dictCur.execute("UPDATE inventory SET rupees = %s WHERE user_id = %s", (rupees, user_id))
