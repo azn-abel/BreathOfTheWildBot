@@ -45,7 +45,7 @@ async def buy(ctx, *args):
         return
     # test for enough stock
     if amount <= 0 or amount > item_stock:
-        ctx.send(f"Amount '{amount}' incorrect")
+        await ctx.send(f"Amount '{amount}' incorrect")
         return
     # test for enough rupees
     dictCur.execute("SELECT * FROM inventory WHERE user_id = %s", (user_id,))
