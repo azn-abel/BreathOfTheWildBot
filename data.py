@@ -25,8 +25,16 @@ def shop_stock_display(shop):
     for x in range(0, len(shop['products'])):
         product = shop['products'][x]
         output += f"**{x}:** {product['name']} - {product['price']} Rupees each, {product['stock']} in stock.\n"
-
     return output
+
+
+def get_map_data():
+    return map_data
+
+
+def write_map_data(json_data):
+    with open("map.json", "w") as write_file:
+        json.dump(json_data, write_file)
 
 
 def get_image(path):

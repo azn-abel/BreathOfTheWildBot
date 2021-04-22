@@ -1,6 +1,7 @@
 from bot import *
 from data import *
 from database import *
+import json
 
 # z.buy <region-id>-<shop-id> <item-index> <amount>
 
@@ -25,6 +26,7 @@ async def buy(ctx, *args):
     amount = int(args[2])
     rupees = None
     sqlSet = None
+    map_data = get_map_data()
     # check to see if all of the id's work
     try:
         region = get_region(region_id)
@@ -62,12 +64,15 @@ async def buy(ctx, *args):
     if rootColumn == "handheld" or rootColumn == "bows":
         s['weapons'][rootColumn].append({'name': item_name, 'damage': itemDict['damage'], 'durability': itemDict['durability'], 'item': item_item})
         sqlSet = "weapons"
+        map_data[]
         # print(s['weapons'])
-    
     # now put it in database
     dictCur.execute("UPDATE inventory SET " + sqlSet + " = %s WHERE user_id = %s", (Json(s[sqlSet]), user_id))
     dictCur.execute("UPDATE inventory SET rupees = %s WHERE user_id = %s", (rupees, user_id))
     conn.commit()
+    # take away from the shop stock
+    map_data['regions'][region_id]['shops'][shop_id]['products'][item_index]['stock'] -= amount
+    write_map_data(map_data)
     await ctx.send(f"You bought a {item_name} for {item_price * amount} rupees, hope you enjoy!")
 
 
